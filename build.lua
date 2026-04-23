@@ -11,14 +11,14 @@ local output = "output/git-volume-" .. vol .. ".pdf"
 os.execute("mkdir -p output")
 
 local cmd = string.format(
-	"pandoc shared/base_style.yaml %s/metadata.yaml %s/pre-textual.md %s/capitulo*.md %s/capitulo-bonus.md %s/referencias.md -o %s --pdf-engine=tectonic", folder, folder, folder, folder, folder, output
+	"pandoc shared/base_style.yaml %s/metadata.yaml %s/pre-textual.md %s/capitulo*.md %s/bonus.md %s/referencias.md -o %s --pdf-engine=tectonic", folder, folder, folder, folder, folder, output
 )
-print("Compilando Volume " .. vol .. ", aguarde...")
+print("-- Compilando Volume " .. vol .. ", aguarde...")
 
 local status = os.execute(cmd)
 
 if status then
-	print("PDF gerado com sucesso: " .. output)
+	print("-- PDF gerado com sucesso: " .. output)
 else
-	print("Erro na compilação.")
+	print("-- Erro na compilação.")
 end
