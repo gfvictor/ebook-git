@@ -52,7 +52,7 @@ Quando o Git tenta unir as histórias (durante um `git pull` ou `merge`), ele de
 
 ### 2.3.1 Fast-Forward (ou Avanço Rápido se Você Curte pt-BR)
 
-Imagine que você ainda criou uma branch `feat/xxxx`, mas ninguém mexeu na `main` desde então. A história é linear. Quando você une as duas, o Git simplesmente move o ponteiro da `main` para a frente, até encontrar o último commit da `feat/xxxx.
+Imagine que você ainda criou uma branch `feat/xxxx`, mas ninguém mexeu na `main` desde então. A história é linear. Quando você une as duas, o Git simplesmente move o ponteiro da `main` para a frente, até encontrar o último commit da `feat/xxxx`.
 
 > **Resultado:** Um histórico limpo, reto e sem commits extras. O cenário ideal, então agradeça a sua sorte.
 
@@ -85,4 +85,19 @@ Isso é bom? Depende.
 
 **O Fluxo de Trabalho Intermediário:**
 
-1. 
+1. `git fetch origin`: Você vê o que mudou sem quebrar nada;
+2. `git log main..origin/main`: Analisa o que os outros fizeram;
+3. `git pull --rebase origin main`: Traz as mudanças e coloca as suas no topo;
+4. `git push`: Agora sim, você está à frente do servidor e o push será aceito.
+
+> **Atenção:** Você deve ter percebido que o exemplo de fluxo acima é para a branch `main`. Então, caso você precise seguir estas etapas para outra branch, basta mudar o nome. Mas você deve ter entendido a explicação, certo? Certo.
+
+### 2.6 Gerenciando Fantasmas: `git fetch --prune`
+
+Trabalhar em equipe significa que branches morrem o tempo todo. Quando um colega deleta uma branch no GitHub, ela ainda fica aparecendo para você como `origin/branch-morta`. Para limpar essa bagunça:
+
+```bash
+$ git fetch --prune
+```
+
+Isso sincroniza sua lista de branches remotas com a realidade atual do servidor, removendo tudo o que foi deletado e permitindo que as branches que morreram façam finalmente a passagem pra outro plano. Amém.
