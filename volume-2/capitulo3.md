@@ -31,11 +31,11 @@ print("Salve, galera!")  # A versão do servidor
 >>>>>>> feat/xxxx
 ```
 
-- **<<<<<<< HEAD:** Início das suas mudanças locais;
+- **`<<<<<<< HEAD`:** Início das suas mudanças locais;
 
-- **=======:** A fronteira entre os dois mundos;
+- **`=======`:** A fronteira entre os dois mundos;
 
-- **>>>>>>>:** O fim das mudanças da branch que está sendo integrada.
+- **`>>>>>>>`:** O fim das mudanças da branch que está sendo integrada.
 
 Sua missão, caso você aceite, é abrir o arquivo, apagar esses marcadores e decidir qual código deve permanecer.
 
@@ -61,7 +61,29 @@ Se você deu um `git pull --rebase` e algo conflitou, o Git entra no estado **RE
 
 > **Atenção:** Aqui você ***não*** faz commit. O Git "despausa" e tenta aplicar o seu **próximo** commit.
 
-> **E Olha a Dica:** `rebase` vs. `--rebase`
-> - `git rebase <branch>` é um comando manual. Você está dizendo: "Quero pegar meu trabalho atual e colocar em cima da história daquela outra branch". Cuidado.
-> - `git pull --rebase` é um atalho. Ele faz o fetch (traz o que tem no servidor) e já emenda um rebase automático do seu trabalho local sobre o que acabou de baixar.
-> Ambos levam ao mesmo lugar, mas o segundo é o que você vai uzar 99% do tempo no dia a dia para manter o seu histórico limpo.
+### 3.3.3 `rebase` vs. `--rebase`
+
+Vamos esclarecer essa dúvida que com certeza deve estar habitando um espaço na sua cabeça:
+
+- `git rebase <branch>` é um comando manual. Você está dizendo: "Quero pegar meu trabalho atual e colocar em cima da história daquela outra branch". Cuidado.
+- `git pull --rebase` é um atalho. Ele faz o fetch (traz o que tem no servidor) e já emenda um rebase automático do seu trabalho local sobre o que acabou de baixar.
+
+Ambos levam ao mesmo lugar, mas o segundo é o que você vai uzar 99% do tempo no dia a dia para manter o seu histórico limpo.
+
+### 3.4 Desistir é uma Opção
+
+Se você percebeu que a resolução está ficando complexa demais ou que você tentou integrar a branch errada, você pode abortar tudo e voltar ao estado anterior ao conflito como se nada tivesse acontecido. Não há vergonha nenhuma em dar um passo atrás se o problema for muita areia pro seu caminhão. Acontece.
+
+```bash
+$ git merge --abort
+
+# OU, se estiver no meio de um `rebase`:
+$ git rebase --abort
+```
+
+### 3.5 Estratégias para Minimizar Conflitos
+
+Conflitos são inevitáveis, mas a frequência deles depende da maturidade da equipe:
+-  **Commits de Tamanho Controlado:** Commits pequenos diminuem a "área de contato" para erros;
+- **Sincronização Frequente:** Não fique três dias isolado. Dê um `git fetch` e um `git pull --rebase` diaramente;
+-  **Comunicação:** Se dois mexem no mesmo arquivo ao mesmo tempo, o problema é a falta de conversa, não o Git.
