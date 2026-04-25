@@ -1,18 +1,13 @@
 local vol = arg[1]
 
 if not vol then
-	print("Para compilar, use 'lua build-mobile.lua <numero-do-volume>'")
+	print("Para compilar, use 'lua build.lua <numero-do-volume>'")
 	os.exit(1)
 end
 
 local folder = "volume-" .. vol
 local output = "output/git-volume-" .. vol .. ".pdf"
 os.execute("mkdir -p output")
-
-local function file_exists(path)
-  local f = io.open(path, "r")
-  if f then f:close(); return true else return false end
-end
 
 local files = {
   "shared/base_style.yaml",
@@ -21,18 +16,24 @@ local files = {
 }
 
 local optionals = {
-  folder .. "/capitulo*.md",
-  folder .. "/bonus.md",
-  folder .. "referencias.md"
+  "capitulo*.md",
+  "bonus.md",
+  "referencias.md"
 }
 
-for _, pattern in ipairs(optionals) do
-  if pattern:find("*") or file_exists (pattern) then
-    table.insert(files, pattern)
+for _, p in ipairs(optionals) do
+  local path = folder .. "/" .. p
+
+  if p:find("*") or io.open(path, "r") then
+    table.insert(files, path)
   end
 end
 
-local cmd = "pandoc " .. table.concat(files, " ") .. " -o " .. output .. " --pdf-engine=tectonic"
+local cmd = string.format(
+  "pandoc %s -o %s --pdf-engine=tectonic --pdf-engine-opt=--print",
+  table.concat(files, " "),
+  output
+)
 
 print("-- Compilando Volume " .. vol .. ", aguarde...")
 local status = os.execute(cmd)
