@@ -4,7 +4,7 @@
 \vspace{-1em}
 ## A Arte da Fusão
 
-No capítulo anterior, resolvemos crises e confltos. Agora, vamos aprender a planejar a paz. O `git merge` é muito mais do que apenas "unir arquivos"; é a ferramenta que consolida histórias divergentes. No nível intermediário, você precisa entender que nem todo `merge` é igual e que a forma como você une o seu código diz muito sobre a sua maturidade técnica como desenvolvedor.
+No capítulo anterior, resolvemos crises e conflitos. Agora, vamos aprender a planejar a paz. O `git merge` é muito mais do que apenas "unir arquivos"; é a ferramenta que consolida histórias divergentes. No nível intermediário, você precisa entender que nem todo `merge` é igual e que a forma como você une o seu código diz muito sobre a sua maturidade técnica como desenvolvedor.
 
 Fusão não é apenas sobre o resultado final, mas sobre a narrativa que você deixa para quem vier depois de você (ou para o seu "eu" do futuro, daqui a dois meses, quando não se lembrar de mais nada).
 
@@ -30,15 +30,15 @@ $ git merge branch-b
 $ git branch -d branch-b
 ```
 
-Note que o Git na "reclama" que você usou `git branch -d` para deletar, porque ela está devidamente "mergeada". Se uma linha mudou na Branch B, mas não na A (em relação ao ancetral), o Git aplica a mudança. Se mudou em ambas de forma diferente... Bem, aí voltamos ao Capítulo 3 e aos conflitos que tanto te assustam.
+Note que o Git não "reclama" que você usou `git branch -d` para deletar, porque ela está devidamente "mergeada". Se uma linha mudou na Branch B, mas não na A (em relação ao ancetral), o Git aplica a mudança. Se mudou em ambas de forma diferente... Bem, aí voltamos ao Capítulo 3 e aos conflitos que tanto te assustam.
 
 ### 5.2 O Dilema do Fast-Forward vs. No-Fast-Foward (`--no-ff`)
 
-Esse tópico volta a assombrar seus sonhos de deixar de ser um "script kid" para se tornar um arquiteto de software, mas não vamos deixar algo simples te prenda. O Git, por padrão, tenta ser "preguiçoso" usando o Fast-Foward.
+Esse tópico volta a assombrar seus sonhos de deixar de ser um "script kid" para se tornar um arquiteto de software, mas não vamos deixar que algo simples te prenda. O Git, por padrão, tenta ser "preguiçoso" usando o Fast-Foward.
 
 ### 5.2.1 Por que o Fast-Forward pode ser um erro?
 
-Se a história é linear, o Git apenas move o ponteiro `main` para o topo da funcionalidade. Visualmente, parece que você nunca saiu da `main`. Se você tiver 10 commits pequenos e experimentais, eles "derretem" no histórico principal. Você perde a noção semântica de "aqui começou a feat x; e aqui ela terminou".
+Se a história é linear, o Git apenas move o ponteiro `main` para o topo da funcionalidade. Visualmente, parece que você nunca saiu da `main`. Se você tiver 10 commits pequenos e experimentais, eles "derretem" no histórico principal. Você perde a noção semântica de "aqui começou a *feature x*; e aqui ela terminou".
 
 ### 5.2.2 A Flag `--no-ff` e o "Padrão GitHub"
 
@@ -48,7 +48,7 @@ Desenvolvedores com mais experiência - e você, um dia, se seguir as dicas dess
 $ git merge --no-ff <branch>
 ```
 
-O que o GitHub tem a ver com isso? Jovem, se você já usou o GitHub, deve ter notado que, ao aceitar um **Pull Request** pelo botãozinho verde, o histórico ganha um commit extra dizendo "*Merge pull request #1 from...*". Isso acontece porque o padrão do GitHub é o **Merge Commit** (`--no-ff`). Você acabou de apreder o truque por trás de uma das "mágicas" da plataforma.
+O que o GitHub tem a ver com isso? Jovem, se você já usou o GitHub, deve ter notado que, ao aceitar um **Pull Request** pelo botãozinho verde, o histórico ganha um commit extra dizendo "*Merge pull request #1 from...*". Isso acontece porque o padrão do GitHub é o **Merge Commit** (`--no-ff`). Você acabou de aprender o truque por trás de uma das "mágicas" da plataforma.
 
 O GitHub faz isso de propósito: ele quer garantir que a "bolha" daquela funcionalidade fique registrada no histórico, facilitando a reversão e a leitura do que foi entregue em cada tarefa. Um iniciante pode achar que é poluição, mas para um desenvolvedor intermediário, é rastro de auditoria. Não esqueça.
 
@@ -73,7 +73,7 @@ Durante anos, a estratégia `recursive` foi o padrão absoluto do Git. Ela é fa
 
 ### 5.4.2 O Reinado de `ORT` (O Gêmeo Ostensivo)
 
-A partir da versão 2.35, o Git introduziu e tornou padrão a estratégia `ORT` (acrônimo para *Ostensible Recursive's Twin* ou "Gêmeo Ostensivo do Recursivo"). Como o próprio nome esquisito indica, ela foi projetada para ser a sucessora direta da `recursive`, corrigindo suas falhas fundamentais.
+A partir da versão 2.34, o Git introduziu e tornou padrão a estratégia `ORT` (acrônimo para *Ostensible Recursive's Twin* ou "Gêmeo Ostensivo do Recursivo"). Como o próprio nome esquisito indica, ela foi projetada para ser a sucessora direta da `recursive`, corrigindo suas falhas fundamentais.
 
 - **Merge "Ortogonal":** O nome `ORT` também brinca com a idéia de ser um merge "ortogonal" e superior, resolvendo quase todos os conflitos de renomeação que travaram o motor anitgo;
 - **Performance Massiva:** A `ORT` foi reescrita para ser eficiente. Em repositórios de escala industrial, ela chega a ser **centenas de vezes mais rápida** que a `recursive`;
@@ -85,8 +85,8 @@ Saber que o Git agora usa `ORT` por padrão mostra que você entende a evoluçã
 
 De forma resumida, pra não prologar mais esse tema:
 
-- Merge: É "honesto". Mantém a cronologia real e o rastro de quadro as coisas foram integradas;
-- Rebase: É "estético". Reescreve a história para parecer linear.
+- **Merge:** É "honesto". Mantém a cronologia real e o rastro de quando as coisas foram integradas;
+- **Rebase:** É "estético". Reescreve a história para parecer linear.
 
 > **A Regra de Ouro:** Nunca faça `rebase` em branches públicas. Guarde o `rebase` para limpar sua bagunça local antes de fazer o merge final.
 

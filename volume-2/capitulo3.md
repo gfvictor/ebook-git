@@ -60,7 +60,7 @@ Imagine que você ainda criou uma branch `feat/xxxx`, mas ninguém mexeu na `mai
 
 Agora imagine que você mexeu na sua branch e, enquanto isso, o Zequinha Dev subiu um commit na `main`. As histórias divergiram. E aí? Agora é o seguinte:
 
-Para unir esses dois universos, o Git precisa criar um novo commit - o *Merge Commit*. Ele olha para o *ancestral comum* das duas branches conflitantes, olha pra *sua versão* e para a *versão do servidor*, e cria um novo commit que une os dois mundos. 
+Para unir esses dois universos, o Git precisa criar um novo commit - o **Merge Commit**. Ele olha para o *ancestral comum* das duas branches conflitantes, olha pra **sua versão** e para a **versão do servidor**, e cria um novo commit que une os dois mundos. 
 
 > **Resultado:** Aquelas mensagens chatas de ˜Merge branch `main` of..." que poluem o seu log.
 
@@ -69,7 +69,7 @@ Para unir esses dois universos, o Git precisa criar um novo commit - o *Merge Co
 Desenvolvedores intermediários preferem manter um histórico limpo e linear. Se você é um deles (ou, ao menos, pretende ser) sua ferramenta é a flag `--rebase`. Ao usá-la, você diz ao Git:
 
 1. Pegue meus commits locais e guarde eles em uma área temporária;
-2. Trás os commits novos do servidor para minha branch (fazendo um Fast-Forward);
+2. Traz os commits novos do servidor para minha branch (fazendo um Fast-Forward);
 3. Coloque meus commits de volta, um por um, no topo do histórico.
 
 ```bash

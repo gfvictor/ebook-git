@@ -15,7 +15,7 @@ O Git é inteligente, mas ele não é telepata. Ele não sabe se a versão corre
 
 ### 4.1.1 Conflito vs. Rejeição 
 
-Alguns desenvolvedores confundem *Conflito* com *Rejeição de Push*. Quando você tenta dar um `git push` e o terminal cospe uma mensagem de erro dizendo `[rejected] (non-fast-foward)` (como dito anteriormente), o Git está te avisando que a história do servidor mudou enquanto você trabalhava.
+Alguns desenvolvedores confundem **Conflito** com **Rejeição de Push**. Quando você tenta dar um `git push` e o terminal cospe uma mensagem de erro dizendo `[rejected] (non-fast-foward)` (como dito anteriormente), o Git está te avisando que a história do servidor mudou enquanto você trabalhava.
 
 O `git push` nunca causará conflitos diretamente no servidor (ainda bem!). Ele apenas avisa: "Eu não posso subir isso porque você vai apagar o que seu coleguinha já fez primeiro". O conflito **nasce** na sua máquina quando você tenta resolver essa rejeição usando um `git pull`.
 
@@ -84,6 +84,7 @@ $ git rebase --abort
 ### 4.5 Estratégias para Minimizar Conflitos
 
 Conflitos são inevitáveis, mas a frequência deles depende da maturidade da equipe:
+
 - **Commits de Tamanho Controlado:** Commits pequenos diminuem a "área de contato" para erros;
 - **Sincronização Frequente:** Não fique três dias isolado. Dê um `git fetch` e um `git pull --rebase` diaramente;
 - **Comunicação:** Se dois mexem no mesmo arquivo ao mesmo tempo, o problema é a falta de conversa, não o Git.

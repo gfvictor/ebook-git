@@ -9,7 +9,7 @@ Promessa é dívida. No fim do Volume I, foi dito que o terminal não precisava 
 
 ### 7.1 O Alicerce: Nerd Fonts
 
-Antes de qualquer coisa, você precisa de uma fonte que entenda o "dialeto" moderno. O *oh-my-zsh* e, principalmente, o tema que usaremos abaixo, exigem icones que fontes comuns não possuem. As Nerd Fonts são versões de fontes famosas (como JetBrains Mono ou Fira Code, que também são fortemente recomendadas por este manual) que incluem milhares de glifos.
+Antes de qualquer coisa, você precisa de uma fonte que entenda o "dialeto" moderno. O *Oh-My-Zsh* e, principalmente, o tema que usaremos abaixo, exigem icones que fontes comuns não possuem. As Nerd Fonts são versões de fontes famosas (como JetBrains Mono ou Fira Code, que também são fortemente recomendadas por este manual) que incluem milhares de glifos.
 
 **Como instalar:**
 
@@ -23,7 +23,7 @@ O Oh-My-Zsh é o framework mais popular para gerenciar sua configuração do Zsh
 
 ### 7.2.1 Identificando seu Shell (Para sua Sanidade)
 
-Antes de sair disparando comandos de instalação como um alucidado, você precisa garantir que está realmente no ambiente Zsh. Tentar instalar o Oh-My-Zsh dentro do Bash ou Fish é o caminho mais curto para você perder a paciência com erros de sintaxe irritantes e largar o terminal.
+Antes de sair disparando comandos de instalação como um alucinado, você precisa garantir que está realmente no ambiente Zsh. Tentar instalar o Oh-My-Zsh dentro do Bash ou Fish é o caminho mais curto para você perder a paciência com erros de sintaxe irritantes e largar o terminal.
 
 Para descobrir qual é o seu shell atual, digite:
 
@@ -43,7 +43,8 @@ $ chsh -s $(which zsh)
 $ sh -c "$(curl -fsSL \
     (https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
-> Você pode escrever o comando em uma linha só.
+
+Sim, esse passo é só isso mesmo.
 
 ### 7.3 A Estética de Elite: Powerlevel10k (p10k)
 
@@ -57,7 +58,7 @@ $ git clone --depth=1 \
     "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 ```
 
-Depois, edite seu `~/.zshrc` e mude a linha que define o tema do shell: `ZSH_THEME` para `ZSH_THEME="powerlevel10k/powerlevel10k"`. Por fim, atualize o shell com `source ~/.zshrc`.
+Depois, edite seu `~/.zshrc` e confirme a mudança na linha que define o tema do shell: `ZSH_THEME` para `ZSH_THEME="powerlevel10k/powerlevel10k"`. Por fim, atualize o shell com `source ~/.zshrc`.
 
 ```Bash
 # Se você usa o Neovim:
@@ -73,7 +74,7 @@ $ ZSH_THEME="powerlevel10k/powerlevel10k"
 $ source ~/.zshrc
 ```
 
-Com isso, o configurador do P10k irá inicializar e você só precisa seguir as instruções que aparecerão no terminal concluir. Não ficou satisfeito com o resultado? Basta digitar `p10k configure`, começar o processo outra vez para alterar o que você não gostou e salvar a nova customização. Agora seu terminal tem outra cara.
+Com isso, o configurador do p10k irá inicializar e você só precisa seguir as instruções que aparecerão no terminal para concluir. Não ficou satisfeito com o resultado? Basta digitar `p10k configure`, começar o processo outra vez para alterar o que você não gostou e salvar a nova customização. Agora seu terminal tem outra cara.
 
 ### 7.4 Outros Plugins Indispensáveis
 
@@ -91,6 +92,6 @@ $ git clone \
     ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
-Novamente, no seu `~/.zshrc`, ative os plugins na lista `plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+Novamente, no seu `~/.zshrc`, confirme a ativação dos plugins na lista `plugins=(git zsh-autosuggestions zsh-syntax-highlighting)` e atualize o shell com `source ~/.zshrc`.
 
-Ter um ambiente que você gosta de olhar torna as horas de estudo menos exaustivas. O Powerlevel10k te dará o status do Git em tempo real na sua cara. Use essa informação para ser um desenvolvedor mais atento.
+Ter um ambiente que você gosta de olhar torna as horas de estudo menos exaustivas. O Powerlevel10k dará o status do Git em tempo real na sua cara. Use essa informação para ser um desenvolvedor mais atento.
