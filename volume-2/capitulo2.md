@@ -1,103 +1,73 @@
 \newpage
 
-# Capítulo II
+# Capítulo 2
 \vspace{-1em}
-## Sicronização e a Anatomia do Fluxo
+## Portais de Entrada
 \vspace{1em}
 
-No capítulo anterior, estabelecemos as pontes (`git add remote`). Agora, vamos aprender a trafegar por elas. Sincronizar código não é apenas "enviar e receber"; é garantir que a sua realidade local e a realidade da nuvem coexistam sem criar um paradoxo temporal que destrua seu projeto. E isso não é um exagero. Acontece.
+### 2.1 A Máquina Xerox: `git clone`
 
-### 2.1 O Observador Prudente: `git fetch`
-
-O `git fetch` é, provavelmente, o comando mais subestimado do Git. Ele é o comando do desenvolvedor que pensa antes de agir. O erro número um do iniciante é achar que o `git pull` é o único comando para obter novidades.
-
-Quando você executa um `git fetch`, o Git descarrega todos os metadados e arquivos do servidor remoto, mas **não mexe nos seus arquivos**, e é importante que você entenda isso. O `git fetch` é como ler o jornal: você fica sabendo o que aconteceu no mundo, mas isso não muda o que está dentro da sua casa. Quase ninguém "lê jornal" hoje em dia, mas fica aí a analogia. 
+O `git clone` é o comando que você usará para baixar um repositório completo de um servidor remoto. Diferente de baixar um arquivo `.zip` do GitHub, o `git clone` traz **todo o histórico de commits**, todas as branches e todas as tags.
 
 ```bash
-$ git fetch origin
+$ git clone git@github.com:dono-original/repositório.git 
 ```
 
-Após este comando, você pode ver o que os seus colegas fizeram sem correr o risco de quebrar ou sobrescrever o seu código atual. É o comando da segurança e da prudência.
+### 2.1.1 O Que o `git clone` Faz Por Baixo dos Panos?
 
-### 2.1.1 As Ramificações Remotas (*Tracking Branches*)
+Muitos iniciantes não percebem, mas o Clone automatiza três passos que você aprendeu a fazer manualmente no capítulo anterior:
 
-Aqui está mais um segredo que separa os homens dos meninos: quando você faz um `git fetch`, o Git atualiza as chamadas ***Remote-Tracking Branches***. Elas aparecem no seu terminal como `origin/main`, `origin/feat/xxxx`, etc.
+1. Cria a pasta do projeto no diretório que você está atualmente;
+2. Executa o `git init`;
+3. Adiciona o `git remote` automaticamente com o nome de `origin`.
 
-Essas branches são como fotografias do estado do servidor. Você não pode trabalhar nelas diretamente. Elas servem como um ponto de comparação.
+> **Dica:** Se você quiser que a pasta local tenha um nome diferente do repositório no servidor, basta passar o nome desejado no final do comando:
+> ```bash
+> $ git clone git@github.com:dono-original/repositório.git <seu-diretório-customizado>
+> ```
 
-Para ver a diferença entre o que você tem e o que está no servidor (após o fetch, claro):
+### 2.2 A Diplomacia do Código: Git Fork
+
+O *Fork* é um conceito que confunde muita gente porque, assim como o Pull Request, ele **não é um comando do Git**, mas uma funcionalidade das plataformas (GitHub/GitLab).
+
+### 2.2.1 Por Que Não Posso Apenas Clonar?
+
+Se você tentar clonar o repositório oficial do *Linux* ou do *VS Code* e der um `git push`, você receberá um erro de permissão. Ou você achava que baixar o código base na sua máquina tornaria você o dono de tudo? Haha, não, não. Você não é o dono desses projetos. MAS, o **Fork** resolve isso criando uma **cópia idêntica** do repositório da **sua conta**.
+
+### 2.2.2 O Fluxo do Contribuidor
+
+O caminho para se tornar um desenvolvedor respeitado no mundo Open Source segue este roteiro:
+
+1. Você faz um **Fork** do projeto original para a sua conta (via GUI);
+2. Você faz um `git clone` do seu fork para a sua máquina;
+3. Você cria uma branch, faz as melhorias e dá o `git push` para o **seu fork**;
+4. Você abre um Pull Request do seu fork para o projeto original e reza pra que seja aceito e dado `merge`. 
+
+Ter uma contribuição direta em um projeto Open Source é um grande marco na carreira de um desenvolvedor.
+
+### 2.3 Mantendo o Vínculo: O Remoto "Upstream"
+
+Quando você faz um fork, o seu repositório na nuvem fica "desconectado" do original. Se o dono do projeto original fizer atualizações, o seu fork não vai recebê-las automaticamente. Para resolver isso, configuramos um segundo remoto chamado convencionamente de `upstream`.
 
 ```bash
-$ git log main..origin/main
+# O "origin" é o SEU fork 
+# O "upstream" é o projeto ORIGINAL de onde você veio
+
+$ git remote add upstream git@github.com:dono-original/repositório.git
 ```
 
-Ou seja, você está pedindo "me mostra o que a `origem/main` tem que eu não tenho na minha `main` local".
-
-### 2.2 O Atalho Perigoso: `git pull`
-
-O famoso `git pull` nada mais é do que um comando "dois em um". Ele é preguiçoso por natureza. Quando você o executa. o Git faz:
-
-1. Um `git fetch` (vai buscar as novidades);
-2. Um `git merge` (tenta fundir essas novidades na sua branch atual).
-
-Acontece que o `git pull` assume que você quer fundir as alterações **agora**. E ele não vai perguntar se você quer ou não. Se você e seu colega alteraram a mesma linha, o `git pull` vai te jogar direto em um conflito de merge sem aviso prévio.
-
-O comportamento padrão do `pull` é criar um "Merge Commit" toda vez que os históricos local e remoto divergem. Se você trabalha em uma equipe ativa, seu histórico do Git logo parecerá um prato de espaguete, cheio de mensagens inúteis como "*Merge branch `main` of github.com...*", ou coisa parecida. Isso dificulta a auditoria e torna o `git log` uma leitura insuportável, até mesmo com a flag `--oneline`.
-
-### 2.3 Entendendo os Movimentos: *Fast-Foward* vs *Three-Way Merge*
-
-Mais uma vez, um ponto importante que define a maestria do Git. Vamos lá, porque você ainda tem chão até chegar no topo dessa montanha.
-
-Quando o Git tenta unir as histórias (durante um `git pull` ou `merge`), ele decide fazer isso baseado no estado dos commits.
-
-### 2.3.1 Fast-Forward (ou Avanço Rápido se Você Curte pt-BR)
-
-Imagine que você ainda criou uma branch `feat/xxxx`, mas ninguém mexeu na `main` desde então. A história é linear. Quando você une as duas, o Git simplesmente move o ponteiro da `main` para a frente, até encontrar o último commit da `feat/xxxx`.
-
-> **Resultado:** Um histórico limpo, reto e sem commits extras. O cenário ideal, então agradeça a sua sorte.
-
-### 2.3.2 Three-Way Merge (O "Merge de Verdade")
-
-Agora imagine que você mexeu na sua branch e, enquanto isso, o Zequinha Dev subiu um commit na `main`. As histórias divergiram. E aí? Agora é o seguinte:
-
-Para unir esses dois universos, o Git precisa criar um novo commit - o *Merge Commit*. Ele olha para o *ancestral comum* das duas branches conflitantes, olha pra *sua versão* e para a *versão do servidor*, e cria um novo commit que une os dois mundos. 
-
-> **Resultado:** Aquelas mensagens chatas de ˜Merge branch `main` of..." que poluem o seu log.
-
-### 2.4 A Alternativa Elegante: `git pull --rebase`
-
-Desenvolvedores intermediários preferem manter um histórico limpo e linear. Se você é um deles (ou, ao menos, pretende ser) sua ferramenta é a flag `--rebase`. Ao usá-la, você diz ao Git:
-
-1. Pegue meus commits locais e guarde eles em uma área temporária;
-2. Trás os commits novos do servidor para minha branch (fazendo um Fast-Forward);
-3. Coloque meus commits de volta, um por um, no topo do histórico.
+Agora, você pode buscar as novidades do original sempre que quiser:
 
 ```bash
-$ git pull --rebase origin main
+$ git fetch upstream
+$ git merge upstream/main
 ```
 
-> **Vantagem:** O histórico fica como se você tivesse começado a trabalhar *depois* que todos os seus coleguinhas terminaram. É limpo, profissional e fácil de ler.
+### 2.4 Clone HTTPS vs. SSH: A Escolha Profissional
 
-### 2.5 Quando o `push` é Rejeitado (Non-Fast-Foward)
+Você verá dois tipos de links para clonar um repositório, no GitHub ou GitLab.
 
-Você tenta dar um `git push` e o Git cospe um erro: `[rejected] (non-fast-forward)`. Isso significa que o servidor tem commits que você não tem. O Git se recusa a sobrescrever o trabalho alheio.
-Isso é bom? Depende.
+- **HTTPS:** Pede senha/token o tempo todo. É pra quem gosta de sofrer.
+- **SSH:** É o que você vem aprendendo a fazer desde o Volume I, usando as chaves SSH que configuramos. É seguro, rápido e silencioso.
 
-**O Fluxo de Trabalho Intermediário:**
-
-1. `git fetch origin`: Você vê o que mudou sem quebrar nada;
-2. `git log main..origin/main`: Analisa o que os outros fizeram;
-3. `git pull --rebase origin main`: Traz as mudanças e coloca as suas no topo;
-4. `git push`: Agora sim, você está à frente do servidor e o push será aceito.
-
-> **Atenção:** Você deve ter percebido que o exemplo de fluxo acima é para a branch `main`. Então, caso você precise seguir estas etapas para outra branch, basta mudar o nome. Mas você deve ter entendido a explicação, certo? Certo.
-
-### 2.6 Gerenciando Fantasmas: `git fetch --prune`
-
-Trabalhar em equipe significa que branches morrem o tempo todo. Quando um colega deleta uma branch no GitHub, ela ainda fica aparecendo para você como `origin/branch-morta`. Para limpar essa bagunça:
-
-```bash
-$ git fetch --prune
-```
-
-Isso sincroniza sua lista de branches remotas com a realidade atual do servidor, removendo tudo o que foi deletado e permitindo que as branches que morreram façam finalmente a passagem pra outro plano. Amém.
+Como você está lendo este manual, é presumido que você escolheu o caminho da eficiência. Use sempre o link que começa com `git@github.com...`, e seja feliz.
