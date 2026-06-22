@@ -1,7 +1,7 @@
 \newpage
 \pagenumbering{arabic}
 \setcounter{page}{1}
-\fancyhead[R]{\textit{Volume III: Avançado}
+\fancyhead[R]{\textit{Volume III: Avançado}}
 
 # Capítulo I
 \vspace{-1em}
@@ -62,7 +62,7 @@ $ git reset --hard f9e8d7c
 ```
 
 Pronto. Mágica feita, emprego salvo. O `reflog` mantém o histórico
-localmente por padrão durente ***90 dias*** para refs alcançàveis e ***30 dias*** para refs inalcançáveis. Então, se você estragou tudo, você tem um mês para se arrepender.
+localmente por padrão durante ***90 dias*** para refs alcançàveis e ***30 dias*** para refs inalcançáveis. Então, se você estragou tudo, você tem um mês para se arrepender.
 
 ### 1.2 A Arte da "Falsificação": `git rebase -i`
 
@@ -83,7 +83,7 @@ atual antes de enviar o seu trabalho. Você executa:
 $ git rebase -i HEAD~3
 ```
 
-Seu editor de texto conigurado no terminal (espero que você tenha
+Seu editor de texto configurado no terminal (espero que você tenha
 aprendido a usar o NeoVim) vai abrir com um arquivo parecido com isto:
 
 ```bash
@@ -131,13 +131,13 @@ para você escrever a nova mensagem de commit consolidada para o
 
 Existe uma regra sagrada no uso do `rebase`: **Nunca, em hipótese
 alguma, faça rebase de commits que já foram enviados com `push` para
-um repositório remoto público que outras pessoas estão utiliando.**
+um repositório remoto público que outras pessoas estão utilizando.**
 Acho que você, a essa altura já deve saber o motivo desse cuidado
 extra.
 
 O rebase reescreve a história. Ele cria novos hashes para os commits.
 Se você alterar o histórico que um colega de trabalho já baixou, a
-próxima vez que ele tentar sincroniar o código, o Git vai entrar em
+próxima vez que ele tentar sincronizar o código, o Git vai entrar em
 pânico e a amizade de vocês vai acabar em um inferno de conflitos.
 
 Use o `rebase -i` livremente na sua máquina local, nas suas branches
