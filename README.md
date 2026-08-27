@@ -16,8 +16,8 @@ Focado em fundamentos locais (`add`, `commit`, `restore`, `reset`), filosofia de
 - **Volume II: Intermediário - A Era da Colaboração.** 
 Focado na anatomia da sincronização (`fetch`, `pull`, `push`), estratérias de `merge` vs. `rebase`, e resolução de conflitos em equipe;
 
-- **Volume III: Avançado - Engenharia de Fluxo e Auditoria (wip - título provisório).** 
-Aborda manipulação de histórico (`reflog`, `bisect`, `interactive rebase`), correções com `cherry-pick`, Git Hooks, e automação de CI/CD.
+- **Volume III: Avançado - Engenharia de Fluxo e Auditoria.** 
+Manipulação de histórico (`reflog`, `rebase -i`), auditoria e debugging (`blame`, `bisect`), pilhagem e desfazimento (`cherry-pick`, `revert`), gerenciamento de contexto (`stash`, `worktree`), Git Hooks e automação de CI/CD com GitHub Actions.
 
 ---
 ## Pré-requisitos e Instalação
